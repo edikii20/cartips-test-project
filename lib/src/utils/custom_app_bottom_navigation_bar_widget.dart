@@ -1,36 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../config/colors.dart';
+import '../config/styles/colors.dart';
 
-class CustomAppBottomNavigationBar extends StatefulWidget {
+class CustomAppBottomNavigationBar extends StatelessWidget {
   const CustomAppBottomNavigationBar({
     Key? key,
-    required this.sizeRatio,
-    required this.initialIndex,
-  }) : super(key: key);
+    required Size sizeRatio,
+    required int selectedIndex,
+    required void Function({required int index}) onChange,
+  })  : _sizeRatio = sizeRatio,
+        _selectedIndex = selectedIndex,
+        _onChange = onChange,
+        super(key: key);
 
-  final Size sizeRatio;
-
-  final int initialIndex;
-
-  @override
-  State<CustomAppBottomNavigationBar> createState() =>
-      _CustomAppBottomNavigationBarState();
-}
-
-class _CustomAppBottomNavigationBarState
-    extends State<CustomAppBottomNavigationBar> {
-  late int selectedIndex;
-  @override
-  void initState() {
-    super.initState();
-    selectedIndex = widget.initialIndex;
-  }
-
-  void onChange({required int index}) {
-    selectedIndex = index;
-    setState(() {});
-  }
+  final Size _sizeRatio;
+  final void Function({required int index}) _onChange;
+  final int _selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +23,22 @@ class _CustomAppBottomNavigationBarState
       decoration: BoxDecoration(
         color: AppColors.black,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20 * widget.sizeRatio.width),
-          topRight: Radius.circular(20 * widget.sizeRatio.width),
+          topLeft: Radius.circular(20 * _sizeRatio.width),
+          topRight: Radius.circular(20 * _sizeRatio.width),
         ),
       ),
       padding: EdgeInsets.only(
-        top: 16 * widget.sizeRatio.height,
-        bottom: 36 * widget.sizeRatio.height,
+        top: 16 * _sizeRatio.height,
+        bottom: 36 * _sizeRatio.height,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _AppBottomNavBarItem(
-            sizeRatio: widget.sizeRatio,
-            selectedIndex: selectedIndex,
+          _CustomAppBottomNavigationBarItem(
+            sizeRatio: _sizeRatio,
+            selectedIndex: _selectedIndex,
             itemIndex: 0,
-            onChange: onChange,
+            onChange: _onChange,
             iconPath: 'assets/images/settings_icon.png',
             title: 'Настройки',
             selectedIconColor: AppColors.black,
@@ -61,11 +46,11 @@ class _CustomAppBottomNavigationBarState
             selectedTabColor: AppColors.grey,
             unSelectedTabColor: Colors.transparent,
           ),
-          _AppBottomNavBarItem(
-            sizeRatio: widget.sizeRatio,
-            selectedIndex: selectedIndex,
+          _CustomAppBottomNavigationBarItem(
+            sizeRatio: _sizeRatio,
+            selectedIndex: _selectedIndex,
             itemIndex: 1,
-            onChange: onChange,
+            onChange: _onChange,
             iconPath: 'assets/images/qrcode_icon.png',
             title: 'Мои коды',
             selectedIconColor: AppColors.black,
@@ -73,11 +58,11 @@ class _CustomAppBottomNavigationBarState
             selectedTabColor: AppColors.grey,
             unSelectedTabColor: Colors.transparent,
           ),
-          _AppBottomNavBarItem(
-            sizeRatio: widget.sizeRatio,
-            selectedIndex: selectedIndex,
+          _CustomAppBottomNavigationBarItem(
+            sizeRatio: _sizeRatio,
+            selectedIndex: _selectedIndex,
             itemIndex: 2,
-            onChange: onChange,
+            onChange: _onChange,
             iconPath: 'assets/images/profile_icon.png',
             title: 'Профиль',
             selectedIconColor: AppColors.black,
@@ -91,19 +76,19 @@ class _CustomAppBottomNavigationBarState
   }
 }
 
-class _AppBottomNavBarItem extends StatefulWidget {
-  const _AppBottomNavBarItem({
+class _CustomAppBottomNavigationBarItem extends StatefulWidget {
+  const _CustomAppBottomNavigationBarItem({
     Key? key,
-    required sizeRatio,
-    required selectedIndex,
-    required itemIndex,
-    required onChange,
-    required iconPath,
-    required selectedIconColor,
-    required selectedTabColor,
-    required title,
-    required unSelectedIconColor,
-    required unSelectedTabColor,
+    required Size sizeRatio,
+    required int selectedIndex,
+    required int itemIndex,
+    required void Function({required int index}) onChange,
+    required String iconPath,
+    required Color selectedIconColor,
+    required Color selectedTabColor,
+    required String title,
+    required Color unSelectedIconColor,
+    required Color unSelectedTabColor,
   })  : _onChange = onChange,
         _iconPath = iconPath,
         _itemIndex = itemIndex,
@@ -125,13 +110,16 @@ class _AppBottomNavBarItem extends StatefulWidget {
   final Color _selectedIconColor;
   final Color _unSelectedTabColor;
   final Color _selectedTabColor;
+
   final void Function({required int index}) _onChange;
 
   @override
-  State<_AppBottomNavBarItem> createState() => _AppBottomNavBarItemState();
+  State<_CustomAppBottomNavigationBarItem> createState() =>
+      _CustomAppBottomNavigationBarItemState();
 }
 
-class _AppBottomNavBarItemState extends State<_AppBottomNavBarItem>
+class _CustomAppBottomNavigationBarItemState
+    extends State<_CustomAppBottomNavigationBarItem>
     with SingleTickerProviderStateMixin {
   late final Animation<double> _animation;
   late final AnimationController _controller;
@@ -157,7 +145,7 @@ class _AppBottomNavBarItemState extends State<_AppBottomNavBarItem>
   }
 
   @override
-  void didUpdateWidget(covariant _AppBottomNavBarItem oldWidget) {
+  void didUpdateWidget(covariant _CustomAppBottomNavigationBarItem oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget._selectedIndex == widget._itemIndex) {
       _controller.forward();
