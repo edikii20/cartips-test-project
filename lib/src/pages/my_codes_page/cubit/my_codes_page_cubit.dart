@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:cartips_test_project/src/domain/api/qrcodes_api.dart';
+import 'package:cartips_test_project/src/domain/api/qrcodes_api/qrcodes_api.dart';
 import 'package:cartips_test_project/src/domain/entities/qrcode.dart';
 import 'package:cartips_test_project/src/domain/entities/qrcode_category.dart';
 
@@ -14,7 +14,6 @@ class MyCodesPageCubit extends Cubit<MyCodesPageState> {
           categories: [],
           qrcodesOfCategory: [],
           stateStatus: MyCodesPageStateStatus.complete,
-          selectedBottomNavigationItemIndex: 1,
         )) {
     setup();
   }
@@ -31,6 +30,11 @@ class MyCodesPageCubit extends Cubit<MyCodesPageState> {
             [];
       } else {
         qrcodesOfCategory = [];
+        emit(state.copyWith(
+          categories: categories,
+          qrcodesOfCategory: qrcodesOfCategory,
+          stateStatus: MyCodesPageStateStatus.failure,
+        ));
       }
 
       emit(state.copyWith(
@@ -67,10 +71,5 @@ class MyCodesPageCubit extends Cubit<MyCodesPageState> {
     } catch (_) {
       emit(state.copyWith(stateStatus: MyCodesPageStateStatus.failure));
     }
-  }
-
-  void onChangeBottomNavigationItemIndex({required int index}) {
-    if (state.selectedBottomNavigationItemIndex == index) return;
-    emit(state.copyWith(selectedBottomNavigationItemIndex: index));
   }
 }

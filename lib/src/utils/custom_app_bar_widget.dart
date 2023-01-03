@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../config/styles/colors.dart';
+import '../config/styles/text_styles.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -45,11 +46,9 @@ class CustomAppBar extends StatelessWidget {
           Expanded(
             child: Text(
               _title,
-              style: TextStyle(
-                color: AppColors.black,
-                fontFamily: 'Roboto',
+              style: AppTextStyles.medium(
                 fontSize: 24,
-                fontWeight: FontWeight.w500,
+                color: AppColors.black,
               ),
             ),
           ),

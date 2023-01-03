@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../config/styles/colors.dart';
+import '../config/styles/text_styles.dart';
 
 class CustomAppBottomNavigationBar extends StatelessWidget {
   const CustomAppBottomNavigationBar({
@@ -40,7 +42,7 @@ class CustomAppBottomNavigationBar extends StatelessWidget {
             itemIndex: 0,
             onChange: _onChange,
             iconPath: 'assets/images/settings_icon.png',
-            title: 'Настройки',
+            title: AppLocalizations.of(context)!.settingsPageTitle,
             selectedIconColor: AppColors.black,
             unSelectedIconColor: AppColors.white,
             selectedTabColor: AppColors.grey,
@@ -52,7 +54,7 @@ class CustomAppBottomNavigationBar extends StatelessWidget {
             itemIndex: 1,
             onChange: _onChange,
             iconPath: 'assets/images/qrcode_icon.png',
-            title: 'Мои коды',
+            title: AppLocalizations.of(context)!.myCodesPageTitle,
             selectedIconColor: AppColors.black,
             unSelectedIconColor: AppColors.white,
             selectedTabColor: AppColors.grey,
@@ -64,7 +66,7 @@ class CustomAppBottomNavigationBar extends StatelessWidget {
             itemIndex: 2,
             onChange: _onChange,
             iconPath: 'assets/images/profile_icon.png',
-            title: 'Профиль',
+            title: AppLocalizations.of(context)!.profilePageTitle,
             selectedIconColor: AppColors.black,
             unSelectedIconColor: AppColors.white,
             selectedTabColor: AppColors.grey,
@@ -199,11 +201,9 @@ class _CustomAppBottomNavigationBarItemState
               _animation.value >= 100 * widget._sizeRatio.width
                   ? widget._title
                   : '',
-              style: TextStyle(
-                color: AppColors.black,
-                fontFamily: 'Roboto',
+              style: AppTextStyles.medium(
                 fontSize: 14,
-                fontWeight: FontWeight.w500,
+                color: AppColors.black,
               ),
             ),
           ],

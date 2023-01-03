@@ -68,15 +68,6 @@ class QrcodesApi {
               QrcodeCategory.fromMap(category as Map<String, dynamic>))
           .toList();
     } on DioError catch (e) {
-      if (e.response != null) {
-        print('Dio error!');
-        print('STATUS: ${e.response?.statusCode}');
-        print('DATA: ${e.response?.data}');
-        print('HEADERS: ${e.response?.headers}');
-      } else {
-        print('Error sending request!');
-        print(e.message);
-      }
       throw DioError(requestOptions: e.requestOptions);
     }
 
@@ -92,15 +83,6 @@ class QrcodesApi {
           ?.map((qrcode) => Qrcode.fromMap(qrcode as Map<String, dynamic>))
           .toList();
     } on DioError catch (e) {
-      if (e.response != null) {
-        print('Dio error!');
-        print('STATUS: ${e.response?.statusCode}');
-        print('DATA: ${e.response?.data}');
-        print('HEADERS: ${e.response?.headers}');
-      } else {
-        print('Error sending request!');
-        print(e.message);
-      }
       throw DioError(requestOptions: e.requestOptions);
     }
     return qrcodesOfCategory;

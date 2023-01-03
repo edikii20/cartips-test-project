@@ -1,6 +1,7 @@
 {
-  "appTitle": "cartips_test_project",
-  "@appTitle": {
-    "description": "The title of the application"
-  }
+  "myCodesPageTitle": "My codes",
+  "settingsPageTitle": "Settings",
+  "profilePageTitle": "Profile",
+  "language": "Language",
+  "update": "Update"
 }
