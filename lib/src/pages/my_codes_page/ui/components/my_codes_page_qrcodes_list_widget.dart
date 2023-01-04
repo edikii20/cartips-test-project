@@ -21,7 +21,7 @@ class _MyCodesPageQrCodesListWidget extends StatelessWidget {
           radius: const Radius.circular(8),
           child: Padding(
             padding: EdgeInsets.only(right: 12 * _sizeRatio.width),
-            child: BlocBuilder<MyCodesPageCubit, MyCodesPageState>(
+            child: BlocBuilder<MyCodesPageBloc, MyCodesPageState>(
               buildWhen: (previous, current) =>
                   previous.stateStatus != current.stateStatus,
               builder: (context, state) {
@@ -37,9 +37,12 @@ class _MyCodesPageQrCodesListWidget extends StatelessWidget {
                     child: _MyCodesPageUpdateButtonWidget(
                       onPressed: () {
                         if (state.categories.isEmpty) {
-                          context.read<MyCodesPageCubit>().setup();
+                          context.read<MyCodesPageBloc>().add(
+                              MyCodesPageUpdateCategoriesAndQrcodesListsEvent());
                         } else {
-                          context.read<MyCodesPageCubit>().updateQrcodesList();
+                          context
+                              .read<MyCodesPageBloc>()
+                              .add(MyCodesPageUpdateQrcodesListEvent());
                         }
                       },
                     ),

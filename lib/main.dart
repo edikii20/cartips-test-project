@@ -1,6 +1,6 @@
 import 'package:cartips_test_project/src/app/cubit/app_cubit.dart';
 import 'package:cartips_test_project/src/domain/repositories/settings_repository.dart';
-import 'package:cartips_test_project/src/pages/my_codes_page/cubit/my_codes_page_cubit.dart';
+import 'package:cartips_test_project/src/pages/my_codes_page/bloc/my_codes_page_bloc.dart';
 import 'package:cartips_test_project/src/pages/selector_page/cubit/selector_page_cubit.dart';
 import 'package:cartips_test_project/src/pages/settings_page/cubit/settings_page_cubit.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ void main() async {
           create: (_) => AppCubit(language: language),
         ),
         BlocProvider(
-          create: (_) => MyCodesPageCubit(),
+          create: (_) => MyCodesPageBloc(),
         ),
         BlocProvider(
           create: (_) => SettingsPageCubit(

@@ -21,8 +21,11 @@ class _MyCodesPageCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          context.read<MyCodesPageCubit>().onChangeCategory(index: _index),
+      onTap: () => _selectedCategoryIndex == _index
+          ? null
+          : context
+              .read<MyCodesPageBloc>()
+              .add(MyCodesPageChangeCategoryEvent(index: _index)),
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: _selectedCategoryIndex == _index

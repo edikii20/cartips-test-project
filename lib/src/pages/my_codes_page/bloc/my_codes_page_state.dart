@@ -1,4 +1,4 @@
-part of 'my_codes_page_cubit.dart';
+part of 'my_codes_page_bloc.dart';
 
 enum MyCodesPageStateStatus { complete, loading, failure }
 

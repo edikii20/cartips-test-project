@@ -13,7 +13,7 @@ class _MyCodesPageCategoriesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 22 * _sizeRatio.height,
-      child: BlocBuilder<MyCodesPageCubit, MyCodesPageState>(
+      child: BlocBuilder<MyCodesPageBloc, MyCodesPageState>(
         buildWhen: (previous, current) =>
             previous.selectedCategoryIndex != current.selectedCategoryIndex ||
             previous.categories != current.categories,
